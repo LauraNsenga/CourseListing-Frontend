@@ -1,7 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router";
 
+
+import { createRouter, createWebHistory } from "vue-router";
 import CourseList from "../views/CourseList.vue";
 import AddCoursePage from "../views/AddCoursePage.vue";
+import EditCourse from "../views/EditCourse.vue";
+
+import SaveCourse from "../views/SaveCourse.vue"; 
+
 
 // import AddCourse from "./views/AddCourse.vue";
 // import ViewCourse from "./views/ViewCourse.vue";
@@ -14,20 +19,24 @@ const router = createRouter({
       path: "/",
       name: "courses",
       component: CourseList,  // Default view will be the course listing
-
     },
-     {
-
-      path: "/",
-       name: "addCourse",
-       component: AddCoursePage,
-     },
-
-     
+    {
+      path: "/add",
+      name: "addCourse",
+      component: AddCoursePage,
+    },
+    {
+      path: "/edit/:id", // Route for editing a course
+      name: "editCourse",
+      component: EditCourse,
+    },
+    {
+      path: "/save", // Route for saving a course
+      name: "saveCourse",
+      component: SaveCourse, // Use SaveCourse.vue for saving functionality
+    },
     
   ],
 });
 
 export default router;
-
-

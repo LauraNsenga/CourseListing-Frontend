@@ -8,15 +8,15 @@ const courses = ref([]);
 const message = ref("");
 
 const editCourse = (course) => {
-  router.push({ name: "editCourse", params: { id: course.courseId } });
+  router.push({ name: "editCourse", params: { id: course.id } }); // Ensure 'id' matches your API
 };
 
 const viewCourse = (course) => {
-  router.push({ name: "viewCourse", params: { id: course.courseId } });
+  router.push({ name: "viewCourse", params: { id: course.id } });
 };
 
 const deleteCourse = (course) => {
-  CourseServices.delete(course.courseId)
+  CourseServices.delete(course.id) // Use 'id' based on your service
     .then(() => {
       retrieveCourses();
     })
@@ -28,7 +28,7 @@ const deleteCourse = (course) => {
 const retrieveCourses = () => {
   CourseServices.getAll()
     .then((response) => {
-      courses.value = response.data;
+      courses.value = response.data; // Ensure this aligns with your API response structure
     })
     .catch((e) => {
       message.value = e.response.data.message;
@@ -40,7 +40,6 @@ retrieveCourses();
 
 <template>
   <div class="container my-4">
-    <!-- Course Management Header -->
     <div class="card">
       <div class="card-header">
         <h3>Courses</h3>
@@ -48,7 +47,6 @@ retrieveCourses();
       <div class="card-body">
         <p><b>{{ message }}</b></p>
 
-        <!-- Courses Table -->
         <table class="table table-striped">
           <thead>
             <tr>
@@ -58,21 +56,18 @@ retrieveCourses();
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in courses" :key="item.courseId">
+            <tr v-for="item in courses" :key="item.id"> <!-- Use 'id' from your service -->
               <td>{{ item.coursename }}</td>
               <td>{{ item.dept }}</td>
               <td>
                 <div class="d-flex align-items-center">
-                  <!-- Edit Button -->
-                  <button class="btn btn-light mx-2 d-flex align-items-center" @click="editCourse(item)">
+                  <button class="btn btn-light mx-2" @click="editCourse(item)">
                     <i class="mdi mdi-pencil"></i>&nbsp;Edit
                   </button>
-                  <!-- View Button -->
-                  <button class="btn btn-light mx-2 d-flex align-items-center" @click="viewCourse(item)">
+                  <button class="btn btn-light mx-2" @click="viewCourse(item)">
                     <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
                   </button>
-                  <!-- Delete Button -->
-                  <button class="btn btn-light mx-2 d-flex align-items-center" @click="deleteCourse(item)">
+                  <button class="btn btn-light mx-2" @click="deleteCourse(item)">
                     <i class="mdi mdi-trash-can"></i>&nbsp;Delete
                   </button>
                 </div>

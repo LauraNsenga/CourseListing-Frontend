@@ -1,23 +1,27 @@
-import apiClient from "./services";
+import apiClient from "./apiClient"; // Ensure the path is correct
 
 export default {
   getAll() {
-    return apiClient.get("/course/");
+    return apiClient.get("/"); // Get all courses
   },
   
   get(id) {
-    return apiClient.get(`/courses/${id}`);
+    return apiClient.get(`/${id}`); // Get course by ID
   },
+  
   create(data) {
-    return apiClient.post("/courses", data);
+    return apiClient.post("/", data); // Create a new course
   },
+  
   update(id, data) {
-    return apiClient.put(`/courses/${id}`, data);
+    return apiClient.put(`/${id}`, data); // Update course by ID
   },
+  
   delete(id) {
-    return apiClient.delete(`/courses/${id}`);
+    return apiClient.delete(`/${id}`); // Delete course by ID
   },
+  
   deleteAll() {
-    return apiClient.delete(`/courses`);
+    return apiClient.delete("/"); // Delete all courses
   },
 };
