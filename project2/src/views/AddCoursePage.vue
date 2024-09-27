@@ -20,7 +20,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import CourseServices from "../sevices/courseServices";
+import CourseServices from "../services/courseServices";
 
 const router = useRouter();
 const course = ref({

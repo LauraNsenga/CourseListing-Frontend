@@ -1,5 +1,5 @@
 <script setup>
-import CourseServices from "../sevices/courseServices"; // Update with your course services
+import CourseServices from "../services/courseServices"; // Update with your course services
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
