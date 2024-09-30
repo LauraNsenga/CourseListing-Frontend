@@ -46,7 +46,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import courseService from '@/services/courseService'; // Assume this service handles API calls
+import courseService from '../services/courseServices'; // Assume this service handles API calls
 
 export default {
   name: 'AddCourse',
@@ -100,7 +100,7 @@ export default {
     };
 
     const cancelAddition = () => {
-      router.push({ name: 'CourseList' });
+      router.push({ name: 'course' });
     };
 
     return {
