@@ -3,9 +3,9 @@
     <!-- Navbar with Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <!-- Logo linked to course listing -->
+       
         <router-link :to="{ name: 'courses' }" class="navbar-brand d-flex align-items-center">
-          <img src="../src/assets/logo.png" alt="Logo" height="60" width="50" class="me-2" />
+          <img src="../src/assets/logo.png" alt="Logo" height="60" width="100" class="me-2" />
           <span class="h5 mb-0">{{ title }}</span>
         </router-link>
 
@@ -60,8 +60,8 @@ export default {
 
 <style scoped>
 .navbar-brand img {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .nav-link {
