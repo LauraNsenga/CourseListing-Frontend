@@ -100,7 +100,7 @@ export default {
     };
 
     const cancelAddition = () => {
-      router.push({ name: 'course' });
+      router.push({ name: 'courses' });
     };
 
     return {
