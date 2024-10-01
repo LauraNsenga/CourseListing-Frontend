@@ -6,18 +6,18 @@ export default {
   },
   
   get(id) {
-    return apiClient.get(`/courses/${id}`);
+    return apiClient.get(`/course/${id}`);
   },
   create(data) {
-    return apiClient.post("/courses", data);
+    return apiClient.post("/course", data);
   },
   update(id, data) {
-    return apiClient.put(`/courses/${id}`, data);
+    return apiClient.put(`/course/${id}`, data);
   },
   delete(id) {
-    return apiClient.delete(`/courses/${id}`);
+    return apiClient.delete(`/course/${id}`);
   },
   deleteAll() {
-    return apiClient.delete(`/courses`);
+    return apiClient.delete(`/course`);
   },
 };

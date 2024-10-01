@@ -13,6 +13,11 @@
       </div>
 
       <div class="form-group">
+        <label for="credits"> Credits</label>
+        <textarea id="credits" v-model="course.credits" required></textarea>
+      </div>
+
+      <div class="form-group">
         <label for="level"> Level</label>
         <textarea id="level" v-model="course.level" required></textarea>
       </div>
@@ -23,9 +28,15 @@
       </div>
 
       <div class="form-group">
-        <label for="courseCredits"> Credits</label>
-        <input type="number" id="courseCredits" v-model="course.credits" required />
-      </div>
+      <label for="dept">Department</label>
+      <input type="text" id="dept" v-model="course.dept" required />
+    </div>
+
+    <div class="form-group">
+      <label for="coursenum">Course Number</label>
+      <input type="text" id="coursenum" v-model="course.coursenum" required />
+    </div>
+
 
       <button type="submit"> Create Course</button>
     </form>
@@ -33,39 +44,73 @@
 </template>
 
 <script>
+import courseServices from '@/sevices/courseServices';
 export default {
   data() {
-    return {
-      course: {
-        name: "",
-        description: "",
-        credits: null,
-      },
-    };
-  },
-  
-  methods: {
-    async submitForm() {
-      try {
-        const response = await fetch("http://localhost:5173/api/courses", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(this.course),
-        });
-
-        if (response.ok) {
-          alert("Course created successfully!");
-          this.course = { name: "", description: "", credits: null };
-        } else {
-          alert("Failed to create course.");
-        }
-      } catch (error) {
-        console.error("Error creating course:", error);
-      }
+  return {
+    course: {
+      name: "",
+      description: "",
+      credits: null,
+      level: "",
+      hours: "",
+      dept: "",
+      coursenum: "",
     },
+  };
+},
+
+methods: {
+  async submitForm() {
+    // Log the course data to check if it is being correctly captured
+    console.log("Course data being submitted:", this.course);
+
+    // Log the request URL to ensure it is pointing to the right API endpoint
+    const apiUrl = "/course"; // or "http://localhost:3000/course" if the backend is on a different port
+    console.log("API URL being used:", apiUrl);
+
+    try {
+      const response = await courseServices.create(this.course);
+
+      // Log the response status and data
+      console.log("Response status:", response.status);
+      const responseData = await response.data;
+      console.log("Response data:", responseData);
+
+      if (response.ok) {
+        alert("Course created successfully!");
+        // Reset the form data
+        this.course = { name: "", description: "", credits: null, level: "", hours: "", dept: "", coursenum: "" };
+      } else {
+        alert("Failed to create course.");
+      }
+    } catch (error) {
+      console.error("Error creating course:", error); // Log any errors during the fetch process
+    }
   },
+},
+
+  // methods: {
+  //   async submitForm() {
+  //     try {
+  //       const response = await fetch("/course", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(this.course),
+  //       });
+
+  //       if (response.ok) {
+  //         alert("Course created successfully!");
+  //           this.course = { name: "", description: "", credits: null, level: "", hours: "", dept: "", coursenum: "" };        } else {
+  //         alert("Failed to create course.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error creating course:", error);
+  //     }
+  //   },
+  // },
 };
 </script>
 
