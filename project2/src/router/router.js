@@ -1,16 +1,9 @@
-
-
 import { createRouter, createWebHistory } from "vue-router";
 import CourseList from "../views/CourseList.vue";
 import AddCoursePage from "../views/AddCoursePage.vue";
 import EditCourse from "../views/EditCourse.vue";
-
-import SaveCourse from "../views/SaveCourse.vue"; 
-
-
-// import AddCourse from "./views/AddCourse.vue";
-// import ViewCourse from "./views/ViewCourse.vue";
-// import DeleteCourse from "./views/DeleteCourse.vue";
+import SaveCourse from "../views/SaveCourse.vue";
+import ViewCourse from "../views/ViewCourse.vue";  // Import ViewCourse
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,9 +26,13 @@ const router = createRouter({
     {
       path: "/save", // Route for saving a course
       name: "saveCourse",
-      component: SaveCourse, // Use SaveCourse.vue for saving functionality
+      component: SaveCourse,
     },
-    
+    {
+      path: "/view/:id", // Route for viewing a course
+      name: "viewCourse",
+      component: ViewCourse,  // Use ViewCourse.vue for displaying course details
+    },
   ],
 });
 

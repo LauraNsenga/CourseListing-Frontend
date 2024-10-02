@@ -8,7 +8,7 @@ const courses = ref([]);
 const message = ref("");
 
 const editCourse = (course) => {
-  router.push({ name: "editCourse", params: { id: course.id } }); // Ensure 'id' matches your API
+  router.push({ name: "editCourse", params: { id: course.id } });
 };
 
 const viewCourse = (course) => {
@@ -16,7 +16,7 @@ const viewCourse = (course) => {
 };
 
 const deleteCourse = (course) => {
-  CourseServices.delete(course.id) // Use 'id' based on your service
+  CourseServices.delete(course.id)
     .then(() => {
       retrieveCourses();
     })
@@ -28,7 +28,7 @@ const deleteCourse = (course) => {
 const retrieveCourses = () => {
   CourseServices.getAll()
     .then((response) => {
-      courses.value = response.data; // Ensure this aligns with your API response structure
+      courses.value = response.data;
     })
     .catch((e) => {
       message.value = e.response.data.message;
@@ -39,53 +39,59 @@ retrieveCourses();
 </script>
 
 <template>
-  <div class="container my-4">
-    <div class="card">
-      <div class="card-header">
-        <h3>Courses</h3>
-      </div>
-      <div class="card-body">
-        <p><b>{{ message }}</b></p>
+  <div class="container-fluid full-width-container my-4">
+    <div class="card-header text-center">
+      <h3>Courses</h3>
+    </div>
+    <div class="card-body">
+      <p class="text-center"><b>{{ message }}</b></p>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Course Name</th>
-              <th>Department</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in courses" :key="item.id"> <!-- Use 'id' from your service -->
-              <td>{{ item.coursename }}</td>
-              <td>{{ item.dept }}</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <button class="btn btn-light mx-2" @click="editCourse(item)">
-                    <i class="mdi mdi-pencil"></i>&nbsp;Edit
-                  </button>
-                  <button class="btn btn-light mx-2" @click="viewCourse(item)">
-                    <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
-                  </button>
-                  <button class="btn btn-light mx-2" @click="deleteCourse(item)">
-                    <i class="mdi mdi-trash-can"></i>&nbsp;Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Loop through courses and display them in a full-width, borderless layout -->
+      <div v-for="item in courses" :key="item.id" class="row py-2 align-items-center">
+        <div class="col-3 text-center">
+          <strong>{{ item.coursename }}</strong>
+        </div>
+        <div class="col-3 text-center">
+          {{ item.dept }}
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <button class="btn btn-light mx-2" @click="editCourse(item)">
+            <i class="mdi mdi-pencil"></i>&nbsp;Edit
+          </button>
+          <button class="btn btn-light mx-2" @click="viewCourse(item)">
+            <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
+          </button>
+          <button class="btn btn-danger mx-2" @click="deleteCourse(item)">
+            <i class="mdi mdi-trash-can"></i>&nbsp;Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.table th, .table td {
-  vertical-align: middle;
+.full-width-container {
+  width: 100vw; /* Full viewport width */
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.d-flex {
+.row {
+  border-bottom: 1px solid #eaeaea; /* Adds a subtle separator between course rows */
+}
+
+.row:last-child {
+  border-bottom: none; /* Removes border for the last item */
+}
+
+.col-3, .col-6 {
+  padding: 10px 0; /* Adds spacing between the columns */
+}
+
+.btn {
   display: flex;
   align-items: center;
 }
@@ -95,8 +101,7 @@ retrieveCourses();
   margin-right: 0.5rem;
 }
 
-.btn {
-  display: flex;
-  align-items: center;
+.text-center {
+  text-align: center;
 }
 </style>
