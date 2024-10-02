@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <!-- Navbar with Bootstrap -->
+  <div class="full-screen">
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-       
         <router-link :to="{ name: 'courses' }" class="navbar-brand d-flex align-items-center">
           <img src="../src/assets/logo.png" alt="Logo" height="60" width="100" class="me-2" />
           <span class="h5 mb-0">{{ title }}</span>
@@ -41,7 +41,7 @@
     </nav>
 
     <!-- Main content area -->
-    <div class="container mt-4">
+    <div class="content-container container-fluid flex-grow-1">
       <router-view />
     </div>
   </div>
@@ -52,15 +52,25 @@ export default {
   name: "App",
   data() {
     return {
-      title: "Course Listing App",
+      title: "Course List App",
     };
   },
 };
 </script>
 
 <style scoped>
+.full-screen {
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  z-index: 1000; /* Ensure navbar stays on top */
+}
+
 .navbar-brand img {
-  max-height: 100px;
+  max-height: 60px;
   max-width: 100px;
 }
 
@@ -74,7 +84,12 @@ export default {
   margin-right: 5px;
 }
 
-.container {
+.container-fluid {
   padding-top: 20px;
+}
+
+.content-container {
+  flex-grow: 1; /* Make the content area grow to fill remaining space */
+  overflow: auto; /* Ensure scrollable content */
 }
 </style>
