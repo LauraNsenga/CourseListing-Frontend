@@ -11,7 +11,7 @@ const courseToDelete = ref(null); // Keep track of the course to delete
 
 // Function to edit course
 const editCourse = (course) => {
-  router.push({ name: "editCourse", params: { id: course.id } }); // Ensure 'id' matches your API
+  router.push({ name: "editCourse", params: { id: course.id } });
 };
 
 // Function to view course
@@ -50,7 +50,7 @@ const cancelDelete = () => {
 const retrieveCourses = () => {
   CourseServices.getAll()
     .then((response) => {
-      courses.value = response.data; // Ensure this aligns with your API response structure
+      courses.value = response.data;
     })
     .catch((e) => {
       message.value = e.response.data.message;
@@ -84,6 +84,7 @@ retrieveCourses();
           <button class="btn btn-light mx-2" @click="viewCourse(item)">
             <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
           </button>
+
           <button class="btn btn-light mx-2" @click="confirmDelete(item)">
             <i class="mdi mdi-trash-can"></i>&nbsp;Delete
           </button>
@@ -107,6 +108,7 @@ retrieveCourses();
             <button class="btn btn-danger" @click="deleteCourse">Delete</button>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -123,11 +125,13 @@ retrieveCourses();
 
 .row {
   border-bottom: 1px solid #eaeaea; /* Adds a subtle separator between course rows */
+
 }
 
 .row:last-child {
   border-bottom: none; /* Removes border for the last item */
 }
+
 
 .col-3, .col-6 {
   padding: 10px 0; /* Adds spacing between the columns */

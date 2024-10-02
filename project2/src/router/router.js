@@ -33,8 +33,7 @@ const router = createRouter({
       name: "viewCourse",
       component: ViewCourse,  // Use ViewCourse.vue for displaying course details
     },
-  
-    
+
   ],
 });
 
