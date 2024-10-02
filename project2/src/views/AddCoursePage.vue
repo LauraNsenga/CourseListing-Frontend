@@ -1,116 +1,145 @@
-<!-- src/views/AddCourse.vue -->
 <template>
-  <div class="container my-4">
-    <h1>Add Course</h1>
-    <form @submit.prevent="saveCourse">
-      <div class="mb-3">
-        <label for="coursename" class="form-label">Course Name*</label>
-        <input type="text" class="form-control" id="coursename" v-model="course.coursename" required />
+  <div class="course-form">
+    <h2>Create a New Course</h2>
+    <form @submit.prevent="submitForm">
+      <div class="form-group">
+        <label for="courseName"> Course Name</label>
+        <input type="text" id="courseName" v-model="course.name" required />
       </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Course Description*</label>
-        <textarea class="form-control" id="description" v-model="course.description" required></textarea>
+
+      <div class="form-group">
+        <label for="courseDescription"> Course Description</label>
+        <textarea id="courseDescription" v-model="course.description" required></textarea>
       </div>
-      <div class="mb-3">
-        <label for="dept" class="form-label">Department*</label>
-        <input type="text" class="form-control" id="dept" v-model="course.dept" required />
+
+      <div class="form-group">
+        <label for="credits"> Credits</label>
+        <textarea id="credits" v-model="course.credits" required></textarea>
       </div>
-      <div class="mb-3">
-        <label for="duration" class="form-label">Course Duration (in weeks)*</label>
-        <input type="number" class="form-control" id="duration" v-model.number="course.duration" min="1" required />
+
+      <div class="form-group">
+        <label for="level"> Level</label>
+        <textarea id="level" v-model="course.level" required></textarea>
       </div>
-      <div class="mb-3">
-        <label for="startDate" class="form-label">Start Date*</label>
-        <input type="date" class="form-control" id="startDate" v-model="course.startDate" required />
+
+      <div class="form-group">
+        <label for="hours"> Hours</label>
+        <textarea id="hours" v-model="course.hours" required></textarea>
       </div>
-      <div class="mb-3">
-        <label for="instructor" class="form-label">Instructor Name*</label>
-        <input type="text" class="form-control" id="instructor" v-model="course.instructor" required />
-      </div>
-      <div class="mb-3">
-        <label for="prerequisites" class="form-label">Course Prerequisites</label>
-        <input type="text" class="form-control" id="prerequisites" v-model="course.prerequisites" />
-      </div>
-      <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" @click="resetForm">Reset</button>
-        <button type="button" class="btn btn-danger" @click="cancelAddition">Cancel</button>
-      </div>
-    </form>
-    <div v-if="message" :class="['alert', messageType === 'success' ? 'alert-success' : 'alert-danger', 'mt-3']" role="alert">
-      {{ message }}
+
+      <div class="form-group">
+      <label for="dept">Department</label>
+      <input type="text" id="dept" v-model="course.dept" required />
     </div>
+
+    <div class="form-group">
+      <label for="coursenum">Course Number</label>
+      <input type="text" id="coursenum" v-model="course.coursenum" required />
+    </div>
+
+
+      <button type="submit"> Create Course</button>
+    </form>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import courseService from '../services/courseServices'; // Assume this service handles API calls
+import courseServices from '../services/courseServices';
 
 export default {
-  name: 'AddCourse',
-  setup() {
-    const router = useRouter();
-    const course = ref({
-      coursename: '',
-      description: '',
-      dept: '',
-      duration: null,
-      startDate: '',
-      instructor: '',
-      prerequisites: ''
-    });
-    const message = ref('');
-    const messageType = ref('');
-
-    const saveCourse = async () => {
-      if (validateForm()) {
-        try {
-          await courseService.addCourse(course.value);
-          message.value = 'Course added successfully!';
-          messageType.value = 'success';
-          setTimeout(() => {
-            router.push({ name: 'CourseList' });
-          }, 2000);
-        } catch (error) {
-          message.value = 'Error adding course. Please try again.';
-          messageType.value = 'error';
-        }
-      }
-    };
-
-    const validateForm = () => {
-      for (const [key, value] of Object.entries(course.value)) {
-        if (key !== 'prerequisites' && !value) {
-          message.value = `Please fill in the ${key} field.`;
-          messageType.value = 'error';
-          return false;
-        }
-      }
-      return true;
-    };
-
-    const resetForm = () => {
-      Object.keys(course.value).forEach(key => {
-        course.value[key] = '';
-      });
-      course.value.duration = null;
-      message.value = '';
-    };
-
-    const cancelAddition = () => {
-      router.push({ name: 'courses' });
-    };
-
+  data() {
     return {
-      course,
-      message,
-      messageType,
-      saveCourse,
-      resetForm,
-      cancelAddition
+      course: {
+        name: "",
+        description: "",
+        credits: null,
+        level: "",
+        hours: "",
+        dept: "",
+        coursenum: "",
+      },
     };
-  }
+  },
+
+  methods: {
+    async submitForm() {
+      console.log("Course data being submitted:", this.course);
+
+      try {
+        const response = await courseServices.create(this.course);
+
+        // Check if response status is successful (2xx)
+        if (response.status >= 200 && response.status < 300) {
+          alert("Course created successfully!");
+          // Reset the form data
+          this.course = { name: "", description: "", credits: null, level: "", hours: "", dept: "", coursenum: "" };
+        } else {
+          alert("Failed to create course.");
+        }
+      } catch (error) {
+        console.error("Error creating course:", error);
+        alert("An error occurred while creating the course.");
+      }
+  },
+},
+
+  // methods: {
+  //   async submitForm() {
+  //     try {
+  //       const response = await fetch("/course", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(this.course),
+  //       });
+
+  //       if (response.ok) {
+  //         alert("Course created successfully!");
+  //           this.course = { name: "", description: "", credits: null, level: "", hours: "", dept: "", coursenum: "" };        } else {
+  //         alert("Failed to create course.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error creating course:", error);
+  //     }
+  //   },
+  // },
 };
 </script>
+
+<style scoped>
+.course-form {
+  /* max-width: 600px; */
+  margin: 0 auto;
+  
+}
+
+.form-group {
+  margin-bottom: 1.5em; /* Adds space between form groups */
+  
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em; /* Adds space between the label and the input field */
+  font-weight: bold; /* Optional: Makes the label bold for better readability */
+ 
+}
+
+input[type="text"], input[type="number"], textarea {
+  width: 100%; /* Ensures the input field takes up the full width of the form */
+  padding: 8px; /* Adds padding inside the input field */
+  box-sizing: border-box; /* Ensures padding doesn’t affect total width */
+  margin-bottom: 1em; /* Adds space between input fields */
+  border: 1px solid #ccc; /* Adds a visible light grey border around the input field */
+  border-radius: 4px; /* Optional: Adds rounded corners to the input fields */
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+</style>
