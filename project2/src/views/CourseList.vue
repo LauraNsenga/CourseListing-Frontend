@@ -62,42 +62,32 @@ retrieveCourses();
 </script>
 
 <template>
-  <div class="container my-4">
-    <div class="card">
-      <div class="card-header">
-        <h3>Courses</h3>
-      </div>
-      <div class="card-body">
-        <p><b>{{ message }}</b></p>
+  <div class="container-fluid full-width-container my-4">
+    <div class="card-header text-center">
+      <h3>Courses</h3>
+    </div>
+    <div class="card-body">
+      <p class="text-center"><b>{{ message }}</b></p>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Course Name</th>
-              <th>Department</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in courses" :key="item.id"> <!-- Use 'id' from your service -->
-              <td>{{ item.coursename }}</td>
-              <td>{{ item.dept }}</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <button class="btn btn-light mx-2" @click="editCourse(item)">
-                    <i class="mdi mdi-pencil"></i>&nbsp;Edit
-                  </button>
-                  <button class="btn btn-light mx-2" @click="viewCourse(item)">
-                    <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
-                  </button>
-                  <button class="btn btn-light mx-2" @click="confirmDelete(item)">
-                    <i class="mdi mdi-trash-can"></i>&nbsp;Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Loop through courses and display them in a full-width, borderless layout -->
+      <div v-for="item in courses" :key="item.id" class="row py-2 align-items-center">
+        <div class="col-3 text-center">
+          <strong>{{ item.coursename }}</strong>
+        </div>
+        <div class="col-3 text-center">
+          {{ item.dept }}
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <button class="btn btn-light mx-2" @click="editCourse(item)">
+            <i class="mdi mdi-pencil"></i>&nbsp;Edit
+          </button>
+          <button class="btn btn-light mx-2" @click="viewCourse(item)">
+            <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
+          </button>
+          <button class="btn btn-light mx-2" @click="confirmDelete(item)">
+            <i class="mdi mdi-trash-can"></i>&nbsp;Delete
+          </button>
+        </div>
       </div>
     </div>
 
@@ -123,11 +113,27 @@ retrieveCourses();
 </template>
 
 <style scoped>
-.table th, .table td {
-  vertical-align: middle;
+.full-width-container {
+  width: 100vw; /* Full viewport width */
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.d-flex {
+.row {
+  border-bottom: 1px solid #eaeaea; /* Adds a subtle separator between course rows */
+}
+
+.row:last-child {
+  border-bottom: none; /* Removes border for the last item */
+}
+
+.col-3, .col-6 {
+  padding: 10px 0; /* Adds spacing between the columns */
+}
+
+.btn {
   display: flex;
   align-items: center;
 }
@@ -137,25 +143,7 @@ retrieveCourses();
   margin-right: 0.5rem;
 }
 
-.modal.show {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1050;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-dialog {
-  max-width: 500px;
-}
-
-.modal-content {
-  padding: 1.5rem;
+.text-center {
+  text-align: center;
 }
 </style>
