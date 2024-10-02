@@ -35,6 +35,11 @@ const router = createRouter({
       name: "saveCourse",
       component: SaveCourse, // Use SaveCourse.vue for saving functionality
     },
+    {
+      path: "/view/:",
+      name: "viewCourse",
+      component: ViewCourse,
+    }
     
   ],
 });

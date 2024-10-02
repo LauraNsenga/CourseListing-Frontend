@@ -3,6 +3,10 @@
     <h2>Create a New Course</h2>
     <form @submit.prevent="submitForm">
       <div class="form-group">
+      <label for="coursenum">Course Number</label>
+      <input type="text" id="coursenum" v-model="course.coursenum" required />
+    </div>
+      <div class="form-group">
         <label for="courseName"> Course Name</label>
         <input type="text" id="courseName" v-model="course.name" required />
       </div>
@@ -31,13 +35,7 @@
       <label for="dept">Department</label>
       <input type="text" id="dept" v-model="course.dept" required />
     </div>
-
-    <div class="form-group">
-      <label for="coursenum">Course Number</label>
-      <input type="text" id="coursenum" v-model="course.coursenum" required />
-    </div>
-
-
+    
       <button type="submit"> Create Course</button>
     </form>
   </div>
