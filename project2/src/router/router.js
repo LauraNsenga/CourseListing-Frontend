@@ -3,7 +3,8 @@ import CourseList from "../views/CourseList.vue";
 import AddCoursePage from "../views/AddCoursePage.vue";
 import EditCourse from "../views/EditCourse.vue";
 import SaveCourse from "../views/SaveCourse.vue";
-import ViewCourse from "../views/ViewCourse.vue";  // Import ViewCourse
+import ViewCourse from "../views/ViewCourse.vue";
+import DeleteCourse from "../views/DeleteCourse.vue";  
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,9 +32,13 @@ const router = createRouter({
     {
       path: "/view/:id", // Route for viewing a course
       name: "viewCourse",
-      component: ViewCourse,  // Use ViewCourse.vue for displaying course details
+      component: ViewCourse,  
     },
-
+    {
+      path: "/delete/:id", // Route for deleting a course
+      name: "deleteCourse",
+      component: DeleteCourse,  
+    },
   ],
 });
 
