@@ -9,7 +9,7 @@
           <span class="h5 mb-0">{{ title }}</span>
         </router-link>
 
-        <!-- Toggle button for mobile -->
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -78,6 +78,7 @@ export default {
   font-size: 1rem;
   display: flex;
   align-items: center;
+  
 }
 
 .nav-link i {
