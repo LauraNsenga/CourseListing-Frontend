@@ -42,8 +42,8 @@ onMounted(() => {
       </div>
 
       <div class="row mb-3">
-        <div class="col-sm-3"><strong>Course ID:</strong></div>
-        <div class="col-sm-9">{{ course.id }}</div>
+        <div class="col-sm-3"><strong>Course Number:</strong></div>
+        <div class="col-sm-9">{{ course.coursenum }}</div> <!-- Updated to coursenum -->
       </div>
 
       <div class="row mb-3">
