@@ -83,6 +83,10 @@ export default {
   transition: transform 0.3s ease; /* Add transition for hover effect */
 }
 
+.custom-navbar {
+  background-color: hwb(341 3% 69%); /* Replace with your logo's red color */
+}
+
 .navbar-logo:hover {
   transform: scale(1.05); /* Scale up on hover */
 }

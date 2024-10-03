@@ -29,13 +29,13 @@
             {{ item.dept }}
           </div>
           <div class="col-6 d-flex justify-content-center">
-            <button class="btn btn-light mx-2" @click="editCourse(item)">
+            <button class="btn btn-outline-secondary" @click="editCourse(item)">
               <i class="mdi mdi-pencil"></i>&nbsp;Edit
             </button>
-            <button class="btn btn-light mx-2" @click="viewCourse(item)">
+            <button class="btn btn-outline-info" @click="viewCourse(item)">
               <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
             </button>
-            <button class="btn btn-light mx-2" @click="navigateToDelete(item.id)">
+            <button class="btn btn-outline-danger" @click="navigateToDelete(item.id)">
               <i class="mdi mdi-trash-can"></i>&nbsp;Delete
             </button>
           </div>
