@@ -18,7 +18,7 @@
           type="text"
           class="form-control"
           id="courseNumber"
-          v-model="course.number"
+          v-model="course.coursenum" 
           required
         />
       </div>
@@ -78,7 +78,7 @@ import CourseServices from "../services/courseServices";
 const router = useRouter();
 const course = ref({
   coursename: '',
-  number: '',
+  coursenum: '',
   dept: '',
   level: '',
   hours: null,

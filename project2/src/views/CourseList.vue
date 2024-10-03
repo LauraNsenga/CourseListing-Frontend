@@ -1,29 +1,33 @@
 <template>
   <div class="container-fluid full-width-container my-4">
+    <!-- Add course form component -->
+    <AddCourse @courseAdded="addCourse" />
+
     <div class="card-header text-center">
       <h3>Courses</h3>
     </div>
     <div class="card-body">
       <p class="text-center"><b>{{ message }}</b></p>
 
-      <!-- Loop through courses and display them in a full-width, borderless layout -->
-      <div v-for="item in courses" :key="item.id" class="row py-2 align-items-center">
-        <div class="col-3 text-center">
-          <strong>{{ item.coursename }}</strong>
-        </div>
-        <div class="col-3 text-center">
-          {{ item.dept }}
-        </div>
-        <div class="col-6 d-flex justify-content-center">
-          <button class="btn btn-light mx-2" @click="editCourse(item)">
-            <i class="mdi mdi-pencil"></i>&nbsp;Edit
-          </button>
-          <button class="btn btn-light mx-2" @click="viewCourse(item)">
-            <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
-          </button>
-          <button class="btn btn-light mx-2" @click="navigateToDelete(item.id)">
-            <i class="mdi mdi-trash-can"></i>&nbsp;Delete
-          </button>
+      <div class="course-list">
+        <div v-for="item in courses" :key="item.id" class="row py-2 align-items-center">
+          <div class="col-3 text-left course-name">
+            <strong>{{ item.coursename }}</strong>
+          </div>
+          <div class="col-3 text-center">
+            {{ item.dept }}
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <button class="btn btn-light mx-2" @click="editCourse(item)">
+              <i class="mdi mdi-pencil"></i>&nbsp;Edit
+            </button>
+            <button class="btn btn-light mx-2" @click="viewCourse(item)">
+              <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
+            </button>
+            <button class="btn btn-light mx-2" @click="navigateToDelete(item.id)">
+              <i class="mdi mdi-trash-can"></i>&nbsp;Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -31,13 +35,32 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import CourseServices from "../services/courseServices"; // Assuming it's already correctly linked
+import CourseServices from "../services/courseServices"; 
 
 const router = useRouter();
 const courses = ref([]);
 const message = ref("");
+
+// Fetch courses
+const retrieveCourses = async () => {
+  try {
+    const response = await CourseServices.getAll();
+    courses.value = response.data; 
+    message.value = ""; 
+  } catch (e) {
+    message.value = e.response.data.message || "An error occurred while fetching courses.";
+  }
+};
+
+// Function to handle course addition
+const addCourse = (newCourse) => {
+  console.log("Before adding:", courses.value); // Log current state
+  courses.value.unshift(newCourse); // Add the new course to the top of the list
+  console.log("After adding:", courses.value); // Log updated state
+  message.value = "Course added successfully!";
+};
 
 // Function to edit course
 const editCourse = (course) => {
@@ -54,45 +77,49 @@ const navigateToDelete = (id) => {
   router.push({ name: "deleteCourse", params: { id } });
 };
 
-// Fetch courses
-const retrieveCourses = () => {
-  CourseServices.getAll()
-    .then((response) => {
-      courses.value = response.data; // Ensure this aligns with your API response structure
-    })
-    .catch((e) => {
-      message.value = e.response.data.message;
-    });
-};
-
-// Initial fetch of courses
-retrieveCourses();
+// Fetch courses when the component mounts
+onMounted(retrieveCourses);
 </script>
 
 <style scoped>
 .full-width-container {
-  width: 100vw; /* Full viewport width */
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
+  width: 100%;
+  margin: 0; 
+}
+
+.course-list {
+  margin-top: 20px; 
 }
 
 .row {
-  border-bottom: 1px solid #eaeaea; /* Adds a subtle separator between course rows */
+  display: flex; 
+  align-items: center; 
+  padding: 10px 0; 
+  border-bottom: 1px solid #eaeaea; 
 }
 
 .row:last-child {
-  border-bottom: none; /* Removes border for the last item */
+  border-bottom: none; 
 }
 
-.col-3,
+.col-3 {
+  text-align: left; 
+}
+
+.course-name {
+  width: 250px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+}
+
 .col-6 {
-  padding: 10px 0; /* Adds spacing between the columns */
+  display: flex; 
+  justify-content: center; 
 }
 
 .btn {
-  display: flex;
+  display: flex; 
   align-items: center;
 }
 
@@ -102,6 +129,6 @@ retrieveCourses();
 }
 
 .text-center {
-  text-align: center;
+  text-align: center; 
 }
 </style>
