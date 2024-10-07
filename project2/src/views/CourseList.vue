@@ -1,5 +1,16 @@
 <template>
   <div class="container-fluid full-width-container my-4">
+     <!-- Search Bar -->
+    <div class="input-group mb-3">
+      <input 
+        type="text" 
+        class="form-control" 
+        v-model="searchKeyword" 
+        placeholder="Search by course number"
+        @keyup.enter="searchCourse" 
+      />
+      <button class="btn btn-primary" @click="searchCourse">Search</button>
+    </div>
     <!-- Add course form component -->
     <AddCourse @courseAdded="addCourse" />
 
@@ -18,13 +29,13 @@
             {{ item.dept }}
           </div>
           <div class="col-6 d-flex justify-content-center">
-            <button class="btn btn-light mx-2" @click="editCourse(item)">
+            <button class="btn btn-outline-secondary" @click="editCourse(item)">
               <i class="mdi mdi-pencil"></i>&nbsp;Edit
             </button>
-            <button class="btn btn-light mx-2" @click="viewCourse(item)">
+            <button class="btn btn-outline-info" @click="viewCourse(item)">
               <i class="mdi mdi-format-list-bulleted-type"></i>&nbsp;View
             </button>
-            <button class="btn btn-light mx-2" @click="navigateToDelete(item.id)">
+            <button class="btn btn-outline-danger" @click="navigateToDelete(item.id)">
               <i class="mdi mdi-trash-can"></i>&nbsp;Delete
             </button>
           </div>
@@ -42,6 +53,7 @@ import CourseServices from "../services/courseServices";
 const router = useRouter();
 const courses = ref([]);
 const message = ref("");
+const searchKeyword = ref(""); 
 
 // Fetch courses
 const retrieveCourses = async () => {
@@ -75,6 +87,21 @@ const viewCourse = (course) => {
 // Function to navigate to delete course
 const navigateToDelete = (id) => {
   router.push({ name: "deleteCourse", params: { id } });
+};
+
+const searchCourse = () => {
+  const keyword = searchKeyword.value;
+
+  // Request to the backend API with coursenum as query param
+  CourseServices.getAll({
+    coursenum: keyword,  // Search based on course number
+  })
+  .then((response) => {
+    courses.value = response.data;  // Update course list with search results
+  })
+  .catch((e) => {
+    message.value = e.response.data.message;
+  });
 };
 
 // Fetch courses when the component mounts
