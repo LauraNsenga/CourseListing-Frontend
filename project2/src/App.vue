@@ -2,7 +2,7 @@
   <div class="full-screen">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
       <div class="container-fluid">
         <router-link :to="{ name: 'courses' }" class="navbar-brand d-flex align-items-center">
           <img src="../src/assets/logo.png" alt="Logo" class="navbar-logo" />
@@ -84,7 +84,7 @@ export default {
 }
 
 .custom-navbar {
-  background-color: hwb(341 3% 69%); /* Replace with your logo's red color */
+  background-color: hwb(341 5% 42%); /* Replace with your desired red color */
 }
 
 .navbar-logo:hover {
@@ -95,7 +95,6 @@ export default {
   font-size: 1rem;
   display: flex;
   align-items: center;
-  
 }
 
 .nav-link i {
