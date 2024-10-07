@@ -2,14 +2,14 @@
   <div class="full-screen">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
       <div class="container-fluid">
         <router-link :to="{ name: 'courses' }" class="navbar-brand d-flex align-items-center">
-          <img src="../src/assets/logo.png" alt="Logo" height="60" width="100" class="me-2" />
+          <img src="../src/assets/logo.png" alt="Logo" class="navbar-logo" />
           <span class="h5 mb-0">{{ title }}</span>
         </router-link>
 
-        <!-- Toggle button for mobile -->
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -60,18 +60,35 @@ export default {
 
 <style scoped>
 .full-screen {
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .navbar {
-  z-index: 1000; /* Ensure navbar stays on top */
+  z-index: 1000;
+  width: 100%; /* Full width for navbar */
+  position: relative; /* Maintain flow */
 }
 
-.navbar-brand img {
-  max-height: 60px;
-  max-width: 100px;
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 60px; /* Adjust height */
+  max-width: 100px; /* Limit max width */
+  margin-right: 10px; /* Space between logo and title */
+  transition: transform 0.3s ease; /* Add transition for hover effect */
+}
+
+.custom-navbar {
+  background-color: hwb(341 3% 69%); /* Replace with your desired red color */
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05); /* Scale up on hover */
 }
 
 .nav-link {
@@ -84,12 +101,28 @@ export default {
   margin-right: 5px;
 }
 
-.container-fluid {
-  padding-top: 20px;
+.content-container {
+  flex-grow: 1;
+  overflow: auto;
+  max-width: 1200px; /* Optional: Constrain content width */
+  margin: 0 auto; /* Center content */
 }
 
-.content-container {
-  flex-grow: 1; /* Make the content area grow to fill remaining space */
-  overflow: auto; /* Ensure scrollable content */
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid layout */
+  gap: 20px; /* Space between course items */
+  padding: 20px;
+}
+
+.course-item {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>
