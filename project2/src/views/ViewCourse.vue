@@ -25,6 +25,7 @@ const retrieveCourse = () => {
 onMounted(() => {
   retrieveCourse();
 });
+console.log("");
 </script>
 
 <template>
