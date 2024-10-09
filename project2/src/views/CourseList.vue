@@ -19,6 +19,7 @@
     </div>
     <div class="card-body">
       <p class="text-center"><b>{{ message }}</b></p>
+     <br>
 
       <div class="course-list">
         <div v-for="item in courses" :key="item.id" class="row py-2 align-items-center">

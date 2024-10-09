@@ -15,7 +15,7 @@ jobs:
           ref: dev
       - uses: actions/setup-node@v2 #update s
         with:
-          node-version: '18.x'
+          node-version: '20.x'
       - run: npm install
       - run: npm run build
       - name: Deploy to Server
