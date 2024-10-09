@@ -111,7 +111,7 @@ export default {
 .course-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid layout */
-  gap: 20px; /* Space between course items */
+  gap: 10px; /* Space between course items */
   padding: 20px;
 }
 
