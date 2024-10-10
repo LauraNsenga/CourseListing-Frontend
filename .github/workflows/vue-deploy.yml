@@ -11,13 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: dev
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - run: npm install
+
       - run: npm run build
+
+      - name: Create target directory
+        run: |
+          ssh -i /home/runner/.ssh/deploy_key -o StrictHostKeyChecking=no ubuntu@project2.eaglesoftwareteam.com 'mkdir -p /var/www/html/2024/project2/t9'
+
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.1
         env:
