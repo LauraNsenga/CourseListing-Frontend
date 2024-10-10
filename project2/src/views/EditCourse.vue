@@ -97,13 +97,14 @@ const saveCourse = () => {
       router.push({ name: "courses" }); // Redirect back to CourseList
     })
     .catch((error) => {
-      errorMessage.value = "Error updating course. Please try again."; // Show error message to user
+      errorMessage.value = "Error updating course. Please try again."; 
       console.error("Error updating course:", error.response ? error.response.data : error.message);
     });
 };
 
 onMounted(() => {
   const courseId = router.currentRoute.value.params.id;
+  console.log("courseId:", courseId); 
   CourseServices.get(courseId)
     .then((response) => {
       course.value = response.data; // Ensure all properties are set
@@ -115,6 +116,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-/* Add your styles here */
-</style>
