@@ -1,7 +1,6 @@
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vuetify from "vite-plugin-vuetify";
 
 import dns from "dns";
 dns.setDefaultResultOrder("verbatim");
@@ -11,7 +10,7 @@ export default () => {
     process.env.APP_ENV === "development" ? "/" : "/tutorial-frontend-vue3/";
 
   return defineConfig({
-    plugins: [vue(), vuetify({ autoImport: true })],
+    plugins: [vue()],
 
     server: {
       host: "localhost",
