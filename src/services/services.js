@@ -3,9 +3,9 @@ import axios from "axios";
 
 var baseurl = "";
 if (import.meta.env.DEV) {
-  baseurl = "http://localhost:3019/";
+  baseurl = "http://localhost:3100/";
 } else {
-  baseurl = "http://localhost:3019/";
+  baseurl = "http://localhost:3100/";
 }
 
 const apiClient = axios.create({
