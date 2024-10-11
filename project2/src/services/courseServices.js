@@ -1,12 +1,10 @@
 import apiClient from "./apiClient"; // Ensure the path is correct
 
 export default {
-  // getAll() {
-  //   return apiClient.get("/"); // Get all courses
-  // },
+ 
 
   getAll(params) {
-    return apiClient.get("/course", { params });
+    return apiClient.get("/", { params });
   },
   
   get(id) {

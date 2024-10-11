@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid full-width-container my-4">
-     <!-- Search Bar -->
+     <!-- Search Bar using course number -->
     <div class="input-group mb-3">
       <input 
         type="text" 
