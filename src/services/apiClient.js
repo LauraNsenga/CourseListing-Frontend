@@ -7,7 +7,7 @@ if(import.meta.env.DEV)
   baseURL ="http://localhost/course/";
 
 }else{
-  baseurl ="/course-t9/";
+  baseURL ="/course-t9/";
 }
 
 const apiClient = axios.create({
