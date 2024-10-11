@@ -7,7 +7,7 @@ dns.setDefaultResultOrder("verbatim");
 
 export default () => {
   const baseURL =
-    process.env.APP_ENV === "development" ? "/" : "/";
+    process.env.APP_ENV === "development" ? "/" : "/2024/project2/t9/";
 
   return defineConfig({
     plugins: [vue()],
