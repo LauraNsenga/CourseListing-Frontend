@@ -5,8 +5,8 @@ export default {
   //   return apiClient.get("/"); // Get all courses
   // },
 
-  getAll(params) {
-    return apiClient.get("/course", { params });
+  getAll() {
+    return apiClient.get("/course");
   },
   
   get(id) {
