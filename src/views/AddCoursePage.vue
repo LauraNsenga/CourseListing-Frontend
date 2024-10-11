@@ -56,7 +56,7 @@ export default {
       try {
         const response = await courseServices.create({
           coursenum: this.course.coursenum,
-          coursename: this.course.coursename, // Changed 'name' to 'coursename'
+          name: this.course.coursename, // Changed 'name' to 'coursename'
           description: this.course.description,
           level: this.course.level,
           hours: this.course.hours,
